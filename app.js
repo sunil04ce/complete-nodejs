@@ -6,6 +6,7 @@ const validator = require('validator');
 const add = require('./utils.js');
 const getNotes = require('./notes.js');
 const chalk = require('chalk');
+const yargs = require('yargs');
 
 // console.log(add(3, 2));
 // console.log(getNotes());
@@ -16,7 +17,14 @@ const chalk = require('chalk');
 // console.log(chalk.yellow('Failed', chalk.underline.bgBlue('Try again')));
 // console.log(chalk.black.bold.bgMagenta('Good Luck'));
 
-console.log(process.argv);
+// console.log(process.argv);
+
+// customize yargs version
+yargs.version('1.1.0');
+
+// create add command
+
+console.log(yargs.argv);
 
 const command = process.argv[2];
 
