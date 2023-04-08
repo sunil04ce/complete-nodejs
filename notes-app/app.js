@@ -2,10 +2,10 @@
 // fs.writeFileSync("notes.txt", "This file was created by NodeJs");
 // fs.appendFileSync("notes.txt", " using VS code");
 
-const validator = require('validator');
-const add = require('./utils.js');
+// const validator = require('validator');
+// const add = require('./utils.js');
 const notes = require('./notes.js');
-const chalk = require('chalk');
+// const chalk = require('chalk');
 const yargs = require('yargs');
 
 // console.log(add(3, 2));
@@ -38,7 +38,7 @@ yargs.command({
             type: 'string'
         },
     },
-    handler: function (argv) {
+    handler(argv) {
         console.log('Title: ', argv.title);
         console.log('Body: ', argv.body);
         notes.addNote(argv.title, argv.body);
@@ -56,7 +56,7 @@ yargs.command({
             type: 'string',
         },
     },
-    handler: function (argv) {
+    handler(argv) {
         console.log('Removing a new note.')
         notes.removeNote(argv.title);
     }
@@ -66,8 +66,8 @@ yargs.command({
 yargs.command({
     command: 'list',
     describe: 'List all notes',
-    handler: function () {
-        console.log('Listing all notes.');
+    handler() {
+        notes.listNotes();
     }
 });
 
@@ -75,8 +75,16 @@ yargs.command({
 yargs.command({
     command: 'read',
     describe: 'Read a note',
-    handler: function () {
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string',
+        },
+    },
+    handler(argv) {
         console.log('Reading a note.');
+        notes.readNote(argv.title);
     }
 });
 
