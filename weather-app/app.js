@@ -5,7 +5,12 @@ const url = 'http://api.weatherstack.com/current?access_key=6af0218b9dcd82a572d8
 request({ url: url, json: true }, (error, response) => {
     // const data = JSON.parse(response.body);
     // console.log(data.current);
-    console.log(response.body.current);
+    console.log(response.body);
+    if (response.body.success) {
+        console.log(response.body.current.weather_descriptions[0] + ", There is " + response.body.current.temperature + " degrees temperature and fillslike temperature is " + response.body.current.feelslike + " degrees");
+    }
+
+
 });
 
 // console.log('Starting')
