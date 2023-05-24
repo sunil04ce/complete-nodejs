@@ -1,4 +1,5 @@
 const request = require('request');
+const geocode = require("./utils/geocode");
 
 const url = 'http://api.weatherstack.com/current?access_key=38111959c2b6a0c576cd949543624f11&query=New%20York';
 
@@ -18,7 +19,7 @@ request({ url: url, json: true }, (error, response) => {
     }
 });
 
-const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiYW5kcmV3bWVhZDEiLCJhIjoiY2pvOG8ybW90MDFhazNxcnJ4OTYydzJlOSJ9.njY7HvaalLEVhEOIghPTlw&limit=1'
+
 
 // request({ url: geocodeURL, json: true }, (error, response) => {
 //     if (error) {
@@ -32,6 +33,15 @@ const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Ange
 //         console.log(longtitude, latitude);
 //     }
 // });
+
+
+
+geocode("New York", (error, data) => {
+    console.log("error -> " + error);
+    console.log("data -> " + data);
+});
+
+
 
 // console.log('Starting')
 
