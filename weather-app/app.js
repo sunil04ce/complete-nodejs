@@ -1,15 +1,33 @@
 const geocode = require("./utils/geocode");
 const forecast = require('./utils/forecast');
 
-// geocode("New York", (error, data) => {
-//     console.log("geocode error -> " + error);
-//     console.log("geocode data -> " + data);
-// });
+const address = process.argv[2];
 
-forecast("New York", (error, data) => {
-    console.log('forecast Error -> ', error)
-    console.log('forecast Data -> ', data)
-})
+if (!address) {
+    console.log("Please provide an Address")
+} else {
+    // geocode(address, (error, geocodeData) => {
+    //     if (error) {
+    //         return console.log("geocode error -> " + error);
+    //     }
+
+    //     forecast(geocodeData.location, (error, forecastData) => {
+    //         if (error) {
+    //             return console.log('forecast Error -> ', error)
+    //         }
+
+    //         console.log("location  -> " + geocodeData.location);
+    //         console.log('forecast Data -> ', forecastData)
+    //     })
+
+    // });
+
+    forecast(address, (error, data) => {
+        console.log('forecast Error -> ', error)
+        console.log('forecast Data -> ', data)
+    });
+}
+
 
 
 // console.log('Starting')
