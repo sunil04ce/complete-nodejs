@@ -24,8 +24,38 @@ const app = express();
 //     res.send('<h1>About</h1>');
 // });
 
+// Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, '../public')
-app.use(express.static(publicDirectoryPath))
+const viewsPath = path.join(__dirname, '../templates/views')
+
+// Setup handlebars engine and views location
+app.set('view engine', 'hbs');
+app.set('views', viewsPath);
+
+// Setup static diretory to serve
+app.use(express.static(publicDirectoryPath));
+
+app.get('', (req, res) => {
+    res.render('index', {
+        title: "Weather App",
+        name: "Jack"
+    });
+});
+
+app.get('/about', (req, res) => {
+    res.render('about', {
+        title: "About Me",
+        name: "Jack Jee"
+    });
+});
+
+app.get('/help', (req, res) => {
+    res.render('help', {
+        title: "Help",
+        name: "Jack Jee",
+        helpText: "You can contact on our email: help@gmail.com"
+    });
+});
 
 app.get('/weather', (req, res) => {
     res.send({
