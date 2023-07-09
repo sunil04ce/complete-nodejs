@@ -30,3 +30,17 @@ const add = (num1, num2, callback) => {
 const sumOfTwoNumbers = add(1, 4, (sum) => {
     console.log(`Sum of two numbers : ${sum}`);
 });
+
+const doWorkCallback = (callback) => {
+    setTimeout(() => {
+        //callback('This is my error!', undefined);
+        callback(undefined, "This is callback result.");
+    }, 2000);
+}
+
+doWorkCallback((error, result) => {
+    if (error) {
+        return console.log(error);
+    }
+    console.log(result);
+});
