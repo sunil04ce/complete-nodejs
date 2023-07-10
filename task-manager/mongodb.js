@@ -25,34 +25,61 @@ MongoClient.connect(connectionURL, {
 
     const db = client.db(databaseName);
 
-    db.collection('users').findOne({ name: 'Jack' }, (error, user) => {
-        if (error) {
-            console.log("Unable to fetch user");
+    db.collection('users').updateOne({
+        _id: new ObjectID("5c0fec243ef6bdfbe1d62e2f")
+    }, {
+        // $set: {
+        //     name: "Jack2"
+        // }
+        $inc: {
+            age: 1
         }
-        console.log(user);
+    }).then((result) => {
+        console.log(result);
+    }).catch((error) => {
+        console.log(error);
     });
 
-    db.collection('users').find({ age: 27 }).toArray((error, users) => {
-        if (error) {
-            console.log('Unable to fetch users');
+    db.collection('users').updateMany({
+        completed: false
+    }, {
+        $set: {
+            completed: true
         }
-        console.log(users);
-    });
+    }).then((result) => {
+        console.log(result.modifiedCount);
+    }).catch((error) => {
+        console.log(error);
+    })
 
-    db.collection('users').find({ age: 27 }).count((error, count) => {
-        if (error) {
-            console.log('Unable to fetch user count');
-        }
-        console.log(count);
-    });
+    // db.collection('users').findOne({ name: 'Jack' }, (error, user) => {
+    //     if (error) {
+    //         console.log("Unable to fetch user");
+    //     }
+    //     console.log(user);
+    // });
 
-    db.collection('tasks').findOne({ _id: new ObjectID("5c0fec243ef6bdfbe1d62e2f") }, (error, task) => {
-        console.log(task);
-    });
+    // db.collection('users').find({ age: 27 }).toArray((error, users) => {
+    //     if (error) {
+    //         console.log('Unable to fetch users');
+    //     }
+    //     console.log(users);
+    // });
 
-    db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
-        console.log(tasks);
-    });
+    // db.collection('users').find({ age: 27 }).count((error, count) => {
+    //     if (error) {
+    //         console.log('Unable to fetch user count');
+    //     }
+    //     console.log(count);
+    // });
+
+    // db.collection('tasks').findOne({ _id: new ObjectID("5c0fec243ef6bdfbe1d62e2f") }, (error, task) => {
+    //     console.log(task);
+    // });
+
+    // db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
+    //     console.log(tasks);
+    // });
 
     // db.collection('users').insertOne({
     //     name: 'Jack',
