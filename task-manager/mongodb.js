@@ -25,32 +25,48 @@ MongoClient.connect(connectionURL, {
 
     const db = client.db(databaseName);
 
-    db.collection('users').updateOne({
-        _id: new ObjectID("5c0fec243ef6bdfbe1d62e2f")
-    }, {
-        // $set: {
-        //     name: "Jack2"
-        // }
-        $inc: {
-            age: 1
-        }
+    db.collection('users').deleteMany({
+        age: 38
     }).then((result) => {
         console.log(result);
     }).catch((error) => {
         console.log(error);
     });
 
-    db.collection('users').updateMany({
-        completed: false
-    }, {
-        $set: {
-            completed: true
-        }
+    db.collection('tasks').deleteOne({
+        description: 'Shop grocessary'
     }).then((result) => {
-        console.log(result.modifiedCount);
+        console.log(result);
     }).catch((error) => {
         console.log(error);
-    })
+    });
+
+    // db.collection('users').updateOne({
+    //     _id: new ObjectID("5c0fec243ef6bdfbe1d62e2f")
+    // }, {
+    //     // $set: {
+    //     //     name: "Jack2"
+    //     // }
+    //     $inc: {
+    //         age: 1
+    //     }
+    // }).then((result) => {
+    //     console.log(result);
+    // }).catch((error) => {
+    //     console.log(error);
+    // });
+
+    // db.collection('users').updateMany({
+    //     completed: false
+    // }, {
+    //     $set: {
+    //         completed: true
+    //     }
+    // }).then((result) => {
+    //     console.log(result.modifiedCount);
+    // }).catch((error) => {
+    //     console.log(error);
+    // })
 
     // db.collection('users').findOne({ name: 'Jack' }, (error, user) => {
     //     if (error) {
@@ -59,14 +75,14 @@ MongoClient.connect(connectionURL, {
     //     console.log(user);
     // });
 
-    // db.collection('users').find({ age: 27 }).toArray((error, users) => {
+    // db.collection('users').find({ age: 38 }).toArray((error, users) => {
     //     if (error) {
     //         console.log('Unable to fetch users');
     //     }
     //     console.log(users);
     // });
 
-    // db.collection('users').find({ age: 27 }).count((error, count) => {
+    // db.collection('users').find({ age: 38 }).count((error, count) => {
     //     if (error) {
     //         console.log('Unable to fetch user count');
     //     }
