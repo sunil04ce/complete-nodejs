@@ -55,4 +55,18 @@ const myFunction = async () => {
     const data = jwt.verify(token, 'thisismy3rdcourse');
     console.log(data);
 }
-myFunction();
+//myFunction();
+
+const Task = require('./models/task');
+const User = require('./models/user');
+
+const main = async () => {
+    // const task = await Task.findById('64cc7a4422781a1206c6dba1')
+    // await task.populate('owner').execPopulate()
+    // console.log(task.owner)
+
+    const user = await User.findById('64cc79bd22781a1206c6db97');
+    console.log(user.tasks);
+}
+
+main();
