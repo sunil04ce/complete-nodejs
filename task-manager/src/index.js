@@ -39,8 +39,15 @@ const upload = multer({
     }
 });
 
+const errorMiddleware = (req, res, next) => {
+    throw new Error('From a middleware')
+}
+
+// app.post('/upload', errorMiddleware, (req, res) => {
 app.post('/upload', upload.single('upload'), (req, res) => {
     res.send();
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
 })
 
 
