@@ -1,25 +1,9 @@
 const request = require('supertest');
-const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
 const app = require('../src/app');
 const User = require('../src/models/user');
+const { userOneId, userOne, setupDatabase } = require('./fixtures/db');
 
-const userOneId = new mongoose.Types.ObjectId();
-const userOne = {
-    _id: userOneId,
-    name: "sunny3",
-    email: "sanny3@gmail.com",
-    password: "sunny@25",
-    tokens: [{
-        token: jwt.sign({ _id: userOneId }, process.env.JWT_SECRET)
-    }]
-};
-
-beforeEach(async () => {
-    // console.log('beforeEach')
-    await User.deleteMany();
-    await new User(userOne).save();
-});
+beforeEach(setupDatabase);
 
 // afterEach(() => {
 //     console.log('afterEach')
@@ -126,4 +110,13 @@ test('Should not update invalid user fields', async () => {
             location: 'Ind'
         })
         .expect(400)
+});
+
+test('Should fetch user tasks', async () => {
+    const response = await request(app)
+        .get('/tasks')
+        .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+        .send()
+        .expect(200);
+    expect(response.body.length).toEqual(2);
 });
