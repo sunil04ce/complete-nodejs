@@ -15,15 +15,17 @@ const locationTempate = document.querySelector('#location-template').innerHTML;
 socket.on('message', (message) => {
     console.log(message);
     const html = Mustache.render(messageTemplate, {
-        message
+        message: message.text,
+        createdAt: moment(message.createdAt).format('h:mm:ss a')
     });
     $messages.insertAdjacentHTML('beforeend', html);
 })
 
-socket.on('locationMessage', (url) => {
-    console.log("URL : ", url);
+socket.on('locationMessage', (location) => {
+    console.log("URL : ", location.url);
     const html = Mustache.render(locationTempate, {
-        url
+        url: location.url,
+        createdAt: moment(location.createdAt).format('h:mm:ss a')
     });
     $messages.insertAdjacentHTML('beforeend', html);
 })
